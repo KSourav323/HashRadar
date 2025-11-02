@@ -1,54 +1,45 @@
 import '../style/landing.css'
-import { useNavigate} from 'react-router-dom';
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import logo from "../assets/logo.png";
+import File from '../components/file';
+import Hash from '../components/hash';
+import Url from '../components/url';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Landing = () => {
-    const API_URL = "http://127.0.0.1:8000";
-    const navigate = useNavigate();
-    const [message, setMessage] = useState(null);
-    const [inputText, setInputText] = useState("");
     const [response, setResponse] = useState("");
 
-  const sendText = async () => {
-    try {
-      const res = await axios.post(`${API_URL}/search`, { text: inputText });
-      setResponse(res.data.response);
-    } catch (error) {
-      console.error("Error sending text:", error);
+  const [active, setActive] = useState(1);
+
+  const renderComponent = () => {
+    switch (active) {
+      case 1:
+        return <Hash/>;
+      case 2:
+        return <File/>;
+      case 3:
+        return <Url/>;
+      default:
+        return null;
     }
   };
 
-    
-
     return (
         <div className='landing'>
+            <ToastContainer />
             <div className='body'>
-                <p>Welcome to HashRadar. </p>
+                <img src={logo} alt="Logo" id='logo'/>
 
-
-                <h3>Send Hash to FastAPI</h3>
-                <input
-                    type="text"
-                    value={inputText}
-                    onChange={(e) => setInputText(e.target.value)}
-                    placeholder="Enter hash..."
-                    style={{
-                    padding: "8px",
-                    width: "250px",
-                    marginRight: "10px",
-                    borderRadius: "5px",
-                    border: "1px solid #ccc",
-                    }}
-                />
-                <button onClick={sendText}>Send</button>
-            </div>
-            {response && (
-                <div className="response-section">
-                    <h4>Response from FastAPI:</h4>
-                    <p>{response}</p>
+                <div id='toggle-btns'>
+                    <button className={`toggle-btn ${active === 1 ? "active" : ""}`} onClick={() => setActive(1)}>Hash</button>
+                    <button className={`toggle-btn ${active === 2 ? "active" : ""}`} onClick={() => setActive(2)}>File</button>
+                    <button className={`toggle-btn ${active === 3 ? "active" : ""}`} onClick={() => setActive(3)}>Url</button>
                 </div>
-            )}
+
+                <div id='section'>
+                    {renderComponent()}
+                </div>
+            </div>
             
         </div>
 

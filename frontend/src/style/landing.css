@@ -1,11 +1,59 @@
-@import url('https://fonts.googleapis.com/css2?family=Megrim&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" );
-
-
 .landing {
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: start;
+}
+
+.body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#logo {
+    width: 80%; 
+    max-width: 500px;
+    margin-block: 10px;
+}
+
+#toggle-btns {
+    width: 100%;
+    max-width: 500px;
+    height: 40px;
+    margin-bottom: 20px;
+    cursor: pointer;
+
+    .toggle-btn {
+        width: 33.33%;
+        height: 100%;
+        color: white;
+        background: transparent;
+        border: none;
+        font-size: 15px;
+        
+        &:hover {
+            background-color: #10002132;
+        }
+    }
+
+    .toggle-btn.active {
+        border-bottom: 2px solid #46088d;
+        color: #fff;
+        }
+}
+
+#section {
+    width: 95%;
+    max-width: 600px;
+    border: 2px solid #46088d;
+    box-sizing: border-box; 
+    margin-block: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: start;
     align-items: center;
 }
+
